@@ -9,26 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class IncidentsAdapter extends RecyclerView.Adapter<IncidentsAdapter.MyViewHolder> {
 
-    private List<Incidents> incidentsList;
+    private ArrayList<Incidents> incidentsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, datetime, description, location;
+        public TextView title, datetime, description;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             datetime = (TextView) view.findViewById(R.id.datetime);
             description = (TextView) view.findViewById(R.id.description);
-            location = (TextView) view.findViewById(R.id.location);
+           // location = (TextView) view.findViewById(R.id.location);
         }
     }
 
 
-    public IncidentsAdapter(List<Incidents> incidentsList) {
+    public IncidentsAdapter(ArrayList<Incidents> incidentsList) {
         this.incidentsList = incidentsList;
     }
 
@@ -46,7 +46,7 @@ public class IncidentsAdapter extends RecyclerView.Adapter<IncidentsAdapter.MyVi
         holder.title.setText(incidents.getTitle());
         holder.datetime.setText(incidents.getDatetime());
         holder.description.setText(incidents.getDescription());
-        holder.location.setText(incidents.getLocation());
+       // holder.location.setText(incidents.getLocation());
     }
 
     @Override

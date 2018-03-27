@@ -1,5 +1,7 @@
 package eu.pendual.mpdcoursework;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,95 +41,120 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class PlannedActivity extends AppCompatActivity {
     ArrayList<String> titleList;
-    ArrayList<Incidents> incidentList;
+    ArrayList<Incidents> incidentList = new ArrayList<Incidents>();
     RecyclerView recyclerView;
     IncidentsAdapter iAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_planned);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        plannedRoadworks();
+        new getXMLTast().execute();
 
-        recyclerView = (RecyclerView) findViewById(R.id.plannedRecycler);
-
-        iAdapter = new IncidentsAdapter(incidentList);
-        RecyclerView.LayoutManager iLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(iLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(iAdapter);
     }
-    public void plannedRoadworks() {
-        try {
-            URL url = new URL("https://trafficscotland.org/rss/feeds/currentincidents.aspx");
-            URLConnection conn = url.openConnection();
+    private class getXMLTast extends AsyncTask {
 
-            //Get Document Builder
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
+        ProgressDialog progDailog = new ProgressDialog(PlannedActivity.this);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-            //Build Document using input stream
-            Document document = builder.parse(conn.getInputStream());
+            progDailog.setMessage("Loading...");
+            progDailog.setIndeterminate(false);
+            progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDailog.setCancelable(true);
+            progDailog.show();
+        }
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try {
+                System.out.println("TRYNA GET URLS");
+                URL url = new URL("http://trafficscotland.org/rss/feeds/plannedroadworks.aspx");
+                URLConnection conn = url.openConnection();
+                System.out.println("url connection found");
 
-            //Normalize the XML Structure; It's just too important !!
-            document.getDocumentElement().normalize();
+                //Get Document Builder
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                System.out.println("document builder got");
+                //Build Document using input stream
+                Document document = builder.parse(conn.getInputStream());
+                System.out.println("document built");
+                //Normalize the XML structure
+                document.getDocumentElement().normalize();
+                System.out.println("xml structure normalised");
+                //Here comes the root node
+                Element root = document.getDocumentElement();
+                System.out.println("THIS IS ROOT NODE" + root.getNodeName());
 
-            //Here comes the root node
-            Element root = document.getDocumentElement();
-            System.out.println("THIS IS ROOT NODE" + root.getNodeName());
+                //Get all items within the XML file
+                NodeList nList = document.getElementsByTagName("item");
+                System.out.println("============================");
 
-            //Get all items within the XML file
-            NodeList nList = document.getElementsByTagName("item");
-            System.out.println("============================");
+                for (int temp = 0; temp < nList.getLength(); temp++) {
+                    Node node = nList.item(temp);
 
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node node = nList.item(temp);
+                    System.out.println("");    //Just a separator
 
-                System.out.println("");    //Just a separator
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) node;
 
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    //Print each employee's detail
-                    Element eElement = (Element) node;
-
-                    System.out.println("TEST TITLE : " + eElement.getElementsByTagName("title").item(0).getTextContent());
-
-                    titleList.add(eElement.getElementsByTagName("title").item(0).getTextContent());
+                        System.out.println("TEST TITLE : " + eElement.getElementsByTagName("title").item(0).getTextContent());
 
 
-                    String title = eElement.getElementsByTagName("title").item(0).getTextContent();
-                    String description = eElement.getElementsByTagName("description").item(0).getTextContent();
-                    String urlLink = eElement.getElementsByTagName("link").item(0).getTextContent();
-                    String location = eElement.getElementsByTagName("georss:point").item(0).getTextContent();
-                    String author = eElement.getElementsByTagName("author").item(0).getTextContent();
-                    String comments = eElement.getElementsByTagName("comments").item(0).getTextContent();
-                    String datetime = eElement.getElementsByTagName("pubDate").item(0).getTextContent().toString();
+                        String title = eElement.getElementsByTagName("title").item(0).getTextContent();
+                        System.out.println(title);
+                        String description = eElement.getElementsByTagName("description").item(0).getTextContent();
+                        System.out.println(description);
+                        String urlLink = eElement.getElementsByTagName("link").item(0).getTextContent();
+                        System.out.println(urlLink);
+                        String location = eElement.getElementsByTagName("georss:point").item(0).getTextContent();
+                        System.out.println(location);
+                        String author = eElement.getElementsByTagName("author").item(0).getTextContent();
+                        System.out.println(author);
+                        String comments = eElement.getElementsByTagName("comments").item(0).getTextContent();
+                        System.out.println(comments);
+                        String datetime = eElement.getElementsByTagName("pubDate").item(0).getTextContent().toString();
+                        System.out.println(datetime);
 
-                    String longitude = location.substring(0, location.indexOf(" "));
-                    String latitude = location.substring(location.lastIndexOf(" ") + 1);
+                        String longitude = location.substring(0, location.indexOf(" "));
+                        System.out.println(longitude);
+                        String latitude = location.substring(location.lastIndexOf(" ") + 1);
+                        System.out.println(latitude);
 
-                    DateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
-                    Date dateTime = format.parse(datetime);
-                    System.out.println(dateTime);
-                    incidentList.add(new Incidents(title, description, urlLink, location, author, comments, dateTime, longitude, latitude, datetime));
+                        DateFormat format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+                        Date dateTime = format.parse(datetime);
+                        System.out.println(dateTime);
+                        incidentList.add(new Incidents(title, description, urlLink, location, author, comments, dateTime, longitude, latitude, datetime));
+
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println("IT BROKE");
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(incidentList.size());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            recyclerView = (RecyclerView) findViewById(R.id.plannedRecycler);
+
+            iAdapter = new IncidentsAdapter(incidentList);
+            RecyclerView.LayoutManager iLayoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(iLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
+            recyclerView.setAdapter(iAdapter);
+            progDailog.dismiss();
         }
     }
 }

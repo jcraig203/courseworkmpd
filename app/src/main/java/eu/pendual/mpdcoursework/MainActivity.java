@@ -17,11 +17,8 @@ import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String currentURL="https://trafficscotland.org/rss/feeds/currentincidents.aspx";
-    private String plannedURL="https://trafficscotland.org/rss/feeds/plannedroadworks.aspx";
     private Button currentButton;
     private Button plannedButton;
-    private String result = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

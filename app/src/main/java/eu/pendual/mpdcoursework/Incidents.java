@@ -18,6 +18,19 @@ public class Incidents {
     private String latitude;
     private String datetime;
 
+    public Incidents() {
+        this.title = "";
+        this.description = "";
+        this.urlLink = "";
+        this.location = "";
+        this.author = "";
+        this.comments = "";
+        this.dateTime = null;
+        this.longitude = "";
+        this.latitude = "";
+        this.datetime = "";
+    }
+
     public Incidents(String title, String description, String urlLink, String location, String author, String comments, Date dateTime, String longitude, String latitude, String datetime) {
         this.title = title;
         this.description = description;
