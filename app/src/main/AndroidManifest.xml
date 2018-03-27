@@ -16,6 +16,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".IncidentsActivity"
+            android:label="@string/title_activity_incidents"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eu.pendual.mpdcoursework.MainActivity" />
+        </activity>
+        <activity
+            android:name=".PlannedActivity"
+            android:label="@string/title_activity_planned"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eu.pendual.mpdcoursework.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
