@@ -56,7 +56,7 @@ public class IncidentsAdapter extends RecyclerView.Adapter<IncidentsAdapter.MyVi
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(incidents.getTitle());
+                System.out.println("Accessing: " + incidents.getTitle());
 
                 String[] incidentStrings = new String[7];
                 incidentStrings[0] = incidents.getTitle();

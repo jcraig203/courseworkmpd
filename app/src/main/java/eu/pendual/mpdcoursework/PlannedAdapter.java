@@ -73,10 +73,13 @@ public class PlannedAdapter extends RecyclerView.Adapter<PlannedAdapter.MyViewHo
         try {
             if (incidents.getLength() <2){
                 holder.datetime.setBackgroundColor(Color.GREEN);
+                System.out.println("Colour set to green");
             } else if (incidents.getLength() >1 && incidents.getLength() < 6){
                 holder.datetime.setBackgroundColor(Color.rgb(254,200, 0));
+                System.out.println("Colour set to amber");
             } else if (incidents.getLength() > 5){
                 holder.datetime.setBackgroundColor(Color.RED);
+                System.out.println("Colour set to red");
             }
         } catch (ParseException e) {
             e.printStackTrace();

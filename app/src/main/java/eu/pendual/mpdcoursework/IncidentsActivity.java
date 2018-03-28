@@ -61,7 +61,7 @@ public class IncidentsActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            System.out.println("Loading page...");
             progDailog.setMessage("Loading...");
             progDailog.setIndeterminate(false);
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -71,24 +71,24 @@ public class IncidentsActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] objects) {
             try {
-                System.out.println("TRYNA GET URLS");
+                System.out.println("Attempting to connect to URL...");
                 URL url = new URL("http://trafficscotland.org/rss/feeds/currentincidents.aspx");
                 URLConnection conn = url.openConnection();
-                System.out.println("url connection found");
+                System.out.println("url connection established!");
 
                 //Get Document Builder
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
-                System.out.println("document builder got");
+                System.out.println("document builder created");
                 //Build Document using input stream
                 Document document = builder.parse(conn.getInputStream());
-                System.out.println("document built");
+                System.out.println("document parsed");
                 //Normalize the XML structure
                 document.getDocumentElement().normalize();
                 System.out.println("xml structure normalised");
                 //Here comes the root node
                 Element root = document.getDocumentElement();
-                System.out.println("THIS IS ROOT NODE" + root.getNodeName());
+                System.out.println("THIS IS ROOT NODE: " + root.getNodeName());
 
                 //Get all items within the XML file
                 NodeList nList = document.getElementsByTagName("item");
@@ -101,9 +101,6 @@ public class IncidentsActivity extends AppCompatActivity {
 
                     if (node.getNodeType() == Node.ELEMENT_NODE) {
                         Element eElement = (Element) node;
-
-                        System.out.println("TEST TITLE : " + eElement.getElementsByTagName("title").item(0).getTextContent());
-
 
                         String title = eElement.getElementsByTagName("title").item(0).getTextContent();
                         System.out.println(title);
@@ -129,7 +126,7 @@ public class IncidentsActivity extends AppCompatActivity {
                         Date dateTime = format.parse(datetime);
                         System.out.println(dateTime);
                         incidentList.add(new Incidents(title, description, urlLink, location, author, comments, dateTime, longitude, latitude, datetime));
-
+                        System.out.println("============================");
                     }
                 }
             } catch (Exception e) {
@@ -144,12 +141,16 @@ public class IncidentsActivity extends AppCompatActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             recyclerView = findViewById(R.id.incidentRecycler);
+            System.out.println("recyclerView instantiated.");
             RecyclerView.LayoutManager iLayoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(iLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
+            System.out.println("recyclerView prepared");
             iAdapter = new IncidentsAdapter(incidentList);
+            System.out.println("Adapter set");
             recyclerView.setAdapter(iAdapter);
+            System.out.println("recyclerView loaded.");
             progDailog.dismiss();
         }
     }

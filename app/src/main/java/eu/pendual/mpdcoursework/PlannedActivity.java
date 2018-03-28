@@ -85,6 +85,7 @@ public class PlannedActivity extends AppCompatActivity implements DatePickerDial
                 int startDay = calendar.get(Calendar.DAY_OF_MONTH);
                 pickedDateList = new ArrayList<Incidents>();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(PlannedActivity.this, PlannedActivity.this, startYear, startMonth, startDay);
+                System.out.println("Opening Datepicker...");
                 datePickerDialog.show();
             }
         });
@@ -226,24 +227,24 @@ public class PlannedActivity extends AppCompatActivity implements DatePickerDial
         @Override
         protected Object doInBackground(Object[] objects) {
             try {
-                System.out.println("TRYNA GET URLS");
+                System.out.println("Attempting to connect to URL...");
                 URL url = new URL("http://trafficscotland.org/rss/feeds/plannedroadworks.aspx");
                 URLConnection conn = url.openConnection();
-                System.out.println("url connection found");
+                System.out.println("url connection established!");
 
                 //Get Document Builder
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
-                System.out.println("document builder got");
+                System.out.println("document builder created");
                 //Build Document using input stream
                 Document document = builder.parse(conn.getInputStream());
-                System.out.println("document built");
+                System.out.println("document parsed");
                 //Normalize the XML structure
                 document.getDocumentElement().normalize();
                 System.out.println("xml structure normalised");
                 //Here comes the root node
                 Element root = document.getDocumentElement();
-                System.out.println("THIS IS ROOT NODE" + root.getNodeName());
+                System.out.println("THIS IS ROOT NODE: " + root.getNodeName());
 
                 //Get all items within the XML file
                 NodeList nList = document.getElementsByTagName("item");
@@ -288,9 +289,11 @@ public class PlannedActivity extends AppCompatActivity implements DatePickerDial
                         LocalDate localPickedDate = pickedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                         System.out.println(localPickedDate);
                         System.out.println(localDateTime.toString().equals(localPickedDate));
+
                         if (localDateTime.equals(localPickedDate)) {
                             pickedDateList.add(new Incidents(title, description, urlLink, location, author, comments, dateTime, longitude, latitude, datetime));
                         }
+                        System.out.println("============================");
                     }
                 }
             } catch (Exception e) {

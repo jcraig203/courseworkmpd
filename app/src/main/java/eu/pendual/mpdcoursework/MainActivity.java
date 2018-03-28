@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, IncidentsActivity.class));
+                System.out.println("Current Incidents activity started!");
             }
         });
     }
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, PlannedActivity.class));
+                System.out.println("Planned Roadworks activity started!");
             }
         });
     }
