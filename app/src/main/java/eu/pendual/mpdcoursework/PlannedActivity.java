@@ -59,7 +59,7 @@ public class PlannedActivity extends AppCompatActivity implements DatePickerDial
     ArrayList<Incidents> pickedDateList = new ArrayList<Incidents>();
     Button datePicker;
     RecyclerView recyclerView;
-    IncidentsAdapter iAdapter;
+    PlannedAdapter iAdapter;
     Date pickedDate;
 
     @Override
@@ -199,7 +199,7 @@ public class PlannedActivity extends AppCompatActivity implements DatePickerDial
             super.onPostExecute(o);
             recyclerView = (RecyclerView) findViewById(R.id.plannedRecycler);
 
-            iAdapter = new IncidentsAdapter(incidentList);
+            iAdapter = new PlannedAdapter(incidentList);
             RecyclerView.LayoutManager iLayoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(iLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -306,7 +306,7 @@ public class PlannedActivity extends AppCompatActivity implements DatePickerDial
             super.onPostExecute(o);
             recyclerView = (RecyclerView) findViewById(R.id.plannedRecycler);
 
-            iAdapter = new IncidentsAdapter(pickedDateList);
+            iAdapter = new PlannedAdapter(pickedDateList);
             RecyclerView.LayoutManager iLayoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(iLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());

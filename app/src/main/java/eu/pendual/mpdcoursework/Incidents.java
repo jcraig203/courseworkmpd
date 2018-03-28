@@ -1,6 +1,10 @@
 package eu.pendual.mpdcoursework;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by James Craig S1428641
@@ -121,5 +125,20 @@ public class Incidents {
 
     public void setDatetime(String datetime) {
         this.datetime = datetime;
+    }
+
+    public int getLength() throws ParseException {
+        int i = 0;
+        String start = description.substring(description.indexOf(":") +1, description.indexOf("<"));
+        String first = description.substring(description.indexOf(":", description.indexOf(":", description.indexOf(":")+1)+1));
+        String end = first.substring(first.indexOf(":")+1, first.indexOf("<"));
+        DateFormat formatv2 = new SimpleDateFormat(" EE, dd MMM yyyy - HH:mm", Locale.ENGLISH);
+        Date startTime = formatv2.parse(start);
+        Date endTime = formatv2.parse(end);
+        Long dateLength = endTime.getTime() - startTime.getTime();
+        long diffDays = dateLength / (24 * 60 * 60 * 1000);
+        i = (int)diffDays;
+
+        return i;
     }
 }
