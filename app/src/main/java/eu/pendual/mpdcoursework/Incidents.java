@@ -3,7 +3,7 @@ package eu.pendual.mpdcoursework;
 import java.util.Date;
 
 /**
- * Created by James on 27/03/2018.
+ * Created by James Craig S1428641
  */
 
 public class Incidents {

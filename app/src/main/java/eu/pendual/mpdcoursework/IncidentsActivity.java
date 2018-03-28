@@ -1,5 +1,9 @@
 package eu.pendual.mpdcoursework;
 
+/**
+ * Created by James Craig S1428641
+ */
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;

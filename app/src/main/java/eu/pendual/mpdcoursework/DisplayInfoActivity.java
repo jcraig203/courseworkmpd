@@ -1,5 +1,9 @@
 package eu.pendual.mpdcoursework;
 
+/**
+ * Created by James Craig S1428641
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

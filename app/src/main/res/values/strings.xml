@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Incidents Checker - James Craig</string>
-    <string name="title_activity_incidents">Current Incidents - James Craig</string>
-    <string name="title_activity_planned">Planned Roadworks - James Craig</string>
-    <string name="title_activity_display_info">More Info - James Craig</string>
+    <!--
+  Created by James Craig S1428641
+-->
+    <string name="app_name">Incidents Checker</string>
+    <string name="title_activity_incidents">Current Incidents</string>
+    <string name="title_activity_planned">Planned Roadworks</string>
+    <string name="title_activity_display_info">More Info</string>
+    <string name="matricNumber">S1428641</string>
+    <string name="s1428641">S1428641</string>
 </resources>

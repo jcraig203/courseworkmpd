@@ -1,8 +1,9 @@
 package eu.pendual.mpdcoursework;
 
 /**
- * Created by James on 27/03/2018.
+ * Created by James Craig S1428641
  */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;

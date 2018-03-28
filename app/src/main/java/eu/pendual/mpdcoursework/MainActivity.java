@@ -1,5 +1,9 @@
 package eu.pendual.mpdcoursework;
 
+/**
+ * Created by James Craig S1428641
+ */
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
