@@ -82,7 +82,7 @@ public class DisplayInfoActivity extends AppCompatActivity {
         titleTextView.setText(title);
         descriptionTextView.setText(description);
         urlTextView.setText(urlLink);
-        authorTextView.setText("Author: " + author);
+        authorTextView.setText("Description: ");
         commentsTextView.setText(comments);
         datetimeTextView.setText(datetime);
     }

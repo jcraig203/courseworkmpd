@@ -22,13 +22,13 @@ public class IncidentsAdapter extends RecyclerView.Adapter<IncidentsAdapter.MyVi
     private ArrayList<Incidents> incidentsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, datetime, description;
+        public TextView title, datetime;
         public RelativeLayout relativeLayout;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             datetime = (TextView) view.findViewById(R.id.datetime);
-            description = (TextView) view.findViewById(R.id.description);
+           // description = (TextView) view.findViewById(R.id.description);
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.incidentLayout);
            // location = (TextView) view.findViewById(R.id.location);
         }
@@ -52,7 +52,7 @@ public class IncidentsAdapter extends RecyclerView.Adapter<IncidentsAdapter.MyVi
         final Incidents incidents = incidentsList.get(position);
         holder.title.setText(incidents.getTitle());
         holder.datetime.setText(incidents.getDatetime());
-        holder.description.setText(incidents.getDescription());
+       // holder.description.setText(incidents.getDescription());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
