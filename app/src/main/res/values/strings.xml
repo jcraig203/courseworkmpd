@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Incidents Checker - James Craig</string>
-    <string name="title_activity_incidents">IncidentsActivity</string>
-    <string name="title_activity_planned">PlannedActivity</string>
+    <string name="title_activity_incidents">Current Incidents - James Craig</string>
+    <string name="title_activity_planned">Planned Roadworks - James Craig</string>
+    <string name="title_activity_display_info">More Info - James Craig</string>
 </resources>

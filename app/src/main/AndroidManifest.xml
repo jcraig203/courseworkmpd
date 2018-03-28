@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.pendual.mpdcoursework">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,6 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eu.pendual.mpdcoursework.MainActivity" />
         </activity>
+        <activity
+            android:name=".DisplayInfoActivity"
+            android:label="@string/title_activity_display_info"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>
